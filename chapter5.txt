@@ -1,3 +1,21 @@
 Chapter 5:
 
 While they searching for the food, tea came infort of them but there was a problem !!!!!!!! there was only one tea
+
+from scapy.all import *
+
+# Load the pcap file
+packets = rdpcap('file.pcap')
+
+# Iterate through the packets
+for packet in packets:
+    # Check if the packet contains an IPFIX header
+    if packet.haslayer('IPFIX'):
+        # Print the source and destination IP addresses
+        print(packet[IP].src, packet[IP].dst)
+        
+        # Iterate through the IPFIX records
+        for record in packet['IPFIX'].records:
+            # Print the fields in the record
+            print(record.fields)
+
